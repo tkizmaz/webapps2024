@@ -12,9 +12,7 @@ Timestamp = timestampHandlerThrift.TimestampHandlerService
 
 # Define your handler class
 class TimestampHandler:
-    def __init__(self):
-        print('BABU BABU BABU')
-        pass
+
     def getCurrentTimestamp(self):
         from datetime import datetime
         return str(datetime.now())
