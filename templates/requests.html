@@ -21,7 +21,7 @@
                 <tbody>
                 {% for request in requests %}
                     <tr>
-                        <td>{{ request.requestSender.email }}</td>
+                        <td>{{ request.requestsSender.email }}</td>
                         <td>{{ request.requestReceiver.email }}</td>
                         <td>{{ request.requestSenderCurrencySign }}{{ request.amount }}</td>
                         <td>{{ request.timestamp }}</td>
