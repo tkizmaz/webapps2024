@@ -5,13 +5,16 @@ from thriftpy2.rpc import make_server
 
 # Load the Thrift file with the module name ending with '_thrift'
 timestampHandlerThrift = thriftpy2.load(
-    '../timestamphandler.thrift', module_name='timestamphandler_thrift')
+    'thrift/timestamphandler.thrift', module_name='timestamphandler_thrift')
 
 # Access the service from the loaded Thrift module
 Timestamp = timestampHandlerThrift.TimestampHandlerService
 
 # Define your handler class
 class TimestampHandler:
+    def __init__(self):
+        print('BABU BABU BABU')
+        pass
     def getCurrentTimestamp(self):
         from datetime import datetime
         return str(datetime.now())
