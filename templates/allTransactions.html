@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block title %}
@@ -8,27 +7,31 @@
 {% block content %}
     <div class="container">
         <h1 class="mt-5 mb-4">Transactions made by users</h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Sender</th>
-                    <th>Receiver</th>
-                    <th>Amount</th>
-                    <th>Transaction Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for transaction in transactions %}
+        {% if transactions %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td>{{ transaction.sender.email }}</td>
-                        <td>{{ transaction.receiver.email }}</td>
-                        <td>{{ transaction.senderCurrencySign }}{{ transaction.amountInSendersCurrency }}</td>
-                        <td>{{ transaction.timestamp }}</td>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Amount</th>
+                        <th>Transaction Date</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.sender.email }}</td>
+                            <td>{{ transaction.receiver.email }}</td>
+                            <td>{{ transaction.senderCurrencySign }}{{ transaction.amountInSendersCurrency }}</td>
+                            <td>{{ transaction.timestamp }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No transactions found.</p>
+        {% endif %}
     </div>
 {% endblock %}
