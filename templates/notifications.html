@@ -5,21 +5,29 @@
 {% endblock %}
 
 {% block content %}
-
     <h1>Notifications</h1>
-        <div class="notifications">
+
+    <div class="notifications">
+        {% if transactions %}
             {% for transaction in transactions %}
                 <div class="notification">
                     <p>You have a payment from {{ transaction.sender.email }} ({{ currency }} {{ transaction.amountInReceiversCurrency }}).</p>
                 </div>
             {% endfor %}
-        </div>
+        {% else %}
+            <p>No new payment notifications.</p>
+        {% endif %}
+    </div>
 
-        <div class="notifications">
+    <div class="notifications">
+        {% if requests %}
             {% for request in requests %}
                 <div class="notification">
                     <p>You have a new payment request from {{ request.requestsSender.email }} ({{ currency }} {{ request.moneyInRequestReceiversCurrency }}).</p>
                 </div>
             {% endfor %}
-        </div>
+        {% else %}
+            <p>No new payment requests.</p>
+        {% endif %}
+    </div>
 {% endblock %}
