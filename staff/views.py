@@ -10,18 +10,21 @@ from staff.forms import AdminRegisterForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 @staff_member_required
+def viewStaffHome(request):
+    return render(request, "staffHome.html")
+@staff_member_required
 def viewUsers(request):
     userDetails = UserDetails.objects.all()
     return render(request, "users.html", {'users': userDetails})
-
+@staff_member_required
 def viewTransactions(request):
     transactionDetails = Transaction.objects.all().order_by('-timestamp')
     return render(request, "allTransactions.html", {'transactions': transactionDetails})
-
+@staff_member_required
 def viewRequests(request):
     requests = MoneyRequest.objects.all().order_by('-timestamp')
     return render(request, "requests.html", {'requests': requests})
-
+@staff_member_required
 def adminRegister(request):
     if request.method == 'POST':
         form = AdminRegisterForm(request.POST)

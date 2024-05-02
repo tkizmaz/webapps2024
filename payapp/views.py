@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from register.models import UserDetails
+from staff.views import viewStaffHome
 from .models import Transaction, MoneyRequest
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -18,7 +19,7 @@ currencySingDict = {
 @login_required
 def viewHome(request):
     if request.user.is_staff:
-        return redirect('staffHome')
+        return viewStaffHome(request)
     requestCount = MoneyRequest.objects.filter(requestReceiver=request.user, accepted=False).count()
     paymentCount = Transaction.objects.filter(receiver=request.user).count()
     return render(request, "home.html", {'email': request.user.username, 'notificationCount': requestCount + paymentCount})
