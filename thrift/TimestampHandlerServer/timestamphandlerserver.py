@@ -5,7 +5,7 @@ from thriftpy2.rpc import make_server
 
 # Load the Thrift file with the module name ending with '_thrift'
 timestampHandlerThrift = thriftpy2.load(
-    '/home/ubuntu/webapps2024/thrift/timestamphandler.thrift', module_name='timestamphandler_thrift')
+    '../timestamphandler.thrift', module_name='timestamphandler_thrift')
 
 # Access the service from the loaded Thrift module
 Timestamp = timestampHandlerThrift.TimestampHandlerService
