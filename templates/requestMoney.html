@@ -21,7 +21,7 @@
         </div>
         <div class="mb-3">
             <label for="amount" class="form-label">Amount:</label>
-            <input type="number" name="amount" id="amount" class="form-control" min="0.01" step="5" required>
+            <input type="number" name="amount" id="amount" class="form-control" min="0.00" step="5" required>
         </div>
         <button type="submit" class="btn btn-primary">Request Money</button>
     </form>
@@ -40,7 +40,7 @@
             {% for request in requests %}
                 <tr>
                     <td>{{ request.requestReceiver.email }}</td>
-                    <td>{{ request.amount }}</td>
+                    <td>{{ request.reqestReceiverCurrencySign }}{{ request.amount }}</td>
                     <td>
                         <form method="post" action="{% url 'requestMoney' %}">
                             {% csrf_token %}

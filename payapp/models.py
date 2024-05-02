@@ -25,7 +25,7 @@ class MoneyRequest(models.Model):
     moneyInRequestSendersCurrency = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))], null=True)
     moneyInRequestReceiversCurrency = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))], null=True)
     requestSenderCurrencySign = models.CharField(max_length=3, null=True)
-    reqestReceiverCurrencySign = models.CharField(max_length=3, null=True)
+    requestReceiverCurrencySign = models.CharField(max_length=3, null=True)
 
     def __str__(self):
         return f"Request from {self.requester.username} amount {self.amount}"

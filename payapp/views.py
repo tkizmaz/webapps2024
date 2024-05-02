@@ -104,7 +104,7 @@ def requestMoney(request):
             try:
                 requestReceiver = User.objects.get(email=email)
                 if request.user.is_authenticated:
-                    newRequest = MoneyRequest(requestsSender=request.user, requestReceiver=requestReceiver, amount=amount, moneyInRequestSendersCurrency=amount, moneyInRequestReceiversCurrency=convertCurrency(request, UserDetails.objects.get(user=request.user).currency, UserDetails.objects.get(user=requestReceiver).currency, amount), timestamp=getTimeStampFromServer(), requestSenderCurrencySign=currencySingDict[UserDetails.objects.get(user=request.user).currency], reqestReceiverCurrencySign=currencySingDict[UserDetails.objects.get(user=requestReceiver).currency])
+                    newRequest = MoneyRequest(requestsSender=request.user, requestReceiver=requestReceiver, amount=amount, moneyInRequestSendersCurrency=amount, moneyInRequestReceiversCurrency=convertCurrency(request, UserDetails.objects.get(user=request.user).currency, UserDetails.objects.get(user=requestReceiver).currency, amount), timestamp=getTimeStampFromServer(), requestSenderCurrencySign=currencySingDict[UserDetails.objects.get(user=request.user).currency], requestReceiverCurrencySign=currencySingDict[UserDetails.objects.get(user=requestReceiver).currency])
                     newRequest.save()
                     return render(request, "requestMoney.html", {'success': 'Request sent','balance': UserDetails.objects.get(user_id=request.user.id).balance, 'requests':requests, 'currencySign': currencySingDict[UserDetails.objects.get(user=request.user).currency]})
             except User.DoesNotExist:

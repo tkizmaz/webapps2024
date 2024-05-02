@@ -38,13 +38,13 @@
                 {% for request in requests %}
                     <tr>
                         <td>{{ request.requestsSender.email }}</td>
-                        <td>{{ request.moneyInRequestReceiversCurrency }}</td>
+                        <td>{{ request.reqestReceiverCurrencySign }}{{ request.moneyInRequestReceiversCurrency }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <form method="post" action="{% url 'transaction' %}" class="mr-1">
                                     {% csrf_token %}
                                     <input type="hidden" name="requestId" value="{{ request.id }}">
-                                    <button type="submit" class="btn btn-success" name="action" value="accept">Accept</button>
+                                    <button type="submit" class="btn btn-success me-3" name="action" value="accept">Accept</button>
                                 </form>
                                 <form method="post" action="{% url 'transaction' %}">
                                     {% csrf_token %}
