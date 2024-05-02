@@ -40,7 +40,7 @@
             {% for request in requests %}
                 <tr>
                     <td>{{ request.requestReceiver.email }}</td>
-                    <td>{{ request.requestReceiverCurrencySign }}{{ request.amount }}</td>
+                    <td>{{ request.requestSenderCurrencySign }}{{ request.amount }}</td>
                     <td>
                         <form method="post" action="{% url 'requestMoney' %}">
                             {% csrf_token %}
