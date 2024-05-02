@@ -4,37 +4,40 @@
     Requests
 {% endblock %}
 
-
 {% block content %}
     <div class="container">
         <h1>Requests made by users</h1>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Request Sender</th>
-                <th>Request Receiver</th>
-                <th>Request Amount</th>
-                <th>Request Date</th>
-                <th>Request Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for request in requests %}
+        {% if requests %}
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ request.requestsSender.email }}</td>
-                    <td>{{ request.requestReceiver.email }}</td>
-                    <td>{{ request.requestSenderCurrencySign }}{{ request.amount }}</td>
-                    <td>{{ request.timestamp }}</td>
-                    <td>
-                        {% if request.accepted %}
-                            Accepted
-                        {% else %}
-                            Pending
-                        {% endif %}
-                    </td>
+                    <th>Request Sender</th>
+                    <th>Request Receiver</th>
+                    <th>Request Amount</th>
+                    <th>Request Date</th>
+                    <th>Request Status</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.requestSender.email }}</td>
+                        <td>{{ request.requestReceiver.email }}</td>
+                        <td>{{ request.requestSenderCurrencySign }}{{ request.amount }}</td>
+                        <td>{{ request.timestamp }}</td>
+                        <td>
+                            {% if request.accepted %}
+                                Accepted
+                            {% else %}
+                                Pending
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No requests found.</p>
+        {% endif %}
     </div>
 {% endblock %}
