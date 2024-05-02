@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+    Request Money
+{% endblock %}
+
+{% block content %}
+    <h1>Request Money</h1>
+    <h3 class="mb-3">Your Balance: {{ currencySign }}{{ balance }}</h3>
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'requestMoney' %}" class="mb-5">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="email" class="form-label">Receiver's Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required placeholder="Enter receiver's email">
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" name="amount" id="amount" class="form-control" min="0.01" step="5" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Request Money</button>
+    </form>
+
+    <h3 class="mb-3">My Requests</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Receiver</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if requests %}
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.requestReceiver.email }}</td>
+                    <td>{{ request.amount }}</td>
+                    <td>
+                        <form method="post" action="{% url 'requestMoney' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="requestId" value="{{ request.id }}">
+                            <button type="submit" class="btn btn-danger" name="action" value="cancel">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">No requests</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

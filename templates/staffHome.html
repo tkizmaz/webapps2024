@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Admin Panel Home
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="mb-5">Welcome to Admin Panel</h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{% url 'adminRegister' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mb-3">Create admin account</button>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="{% url 'viewUsers' %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mb-3">Users</button>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="{% url 'viewTransactions' %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mb-3">Transactions</button>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="{% url 'viewRequests' %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mb-3">Transaction Requests</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

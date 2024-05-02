@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Transaction History
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Transactions made by you</h1>
+        {% if transactionsMadeByYou %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for transaction in transactionsMadeByYou %}
+                    <tr>
+                        <td>{{ transaction.sender.email }}</td>
+                        <td>{{ transaction.receiver.email }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No transactions made by you.</p>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h1>Transactions made to you</h1>
+        {% if transactionsMadeToYou %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for transaction in transactionsMadeToYou %}
+                    <tr>
+                        <td>{{ transaction.sender.email }}</td>
+                        <td>{{ transaction.receiver.email }}</td>
+                        <td>{{ transaction.amountInReceiversCurrency }}</td>
+                        <td>{{ transaction.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No transactions made to you.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Account Information
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Account Information</h1>
+
+    <div class="account-info mb-3 p-3 border rounded">
+        <h4 class="mb-2">Name: <strong>{{ user.first_name }} {{ user.last_name }}</strong></h4>
+        <h4 class="mb-2">Username: <strong>{{ user.username }}</strong></h4>
+        <h4 class="mb-0">Balance: <strong>{{ currencySign }}{{ balance }}</strong></h4>
+    </div>
+{% endblock %}

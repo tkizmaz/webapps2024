@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Transfer Money</h1>
+
+    <h3>Your Balance: {{ currencySign }}{{ balance }}</h3>
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form method="post" action="{% url 'transaction' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="email" class="form-label">Receiver's Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required placeholder="Enter receiver's email">
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" name="amount" id="amount" class="form-control" min="0.0" step="5" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Money</button>
+    </form>
+
+    <h3 class="mt-5">Recent Requests</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if requests %}
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.requestsSender.email }}</td>
+                        <td>{{ request.moneyInRequestReceiversCurrency }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form method="post" action="{% url 'transaction' %}" class="mr-1">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="requestId" value="{{ request.id }}">
+                                    <button type="submit" class="btn btn-success" name="action" value="accept">Accept</button>
+                                </form>
+                                <form method="post" action="{% url 'transaction' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="requestId" value="{{ request.id }}">
+                                    <button type="submit" class="btn btn-danger" name="action" value="decline">Decline</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No requests</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

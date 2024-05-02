@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="mb-4">Welcome {{ email }}</h1>
+
+    <div class="d-flex justify-content-between mb-3">
+        <form action="{% url 'accountInfo' %}" method="get">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Account Information</button>
+        </form>
+
+        <form action="{% url 'transaction' %}" method="get">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Transfer Money</button>
+        </form>
+
+        <form action="{% url 'requestMoney' %}" method="get">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Request Money</button>
+        </form>
+
+        <form action="{% url 'transactionHistory' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Transaction History</button>
+        </form>
+
+        <form action="{% url 'notifications' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Notifications({{ notificationCount }})</button>
+        </form>
+
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+        </form>
+
+    </div>
+
+{% endblock %}
