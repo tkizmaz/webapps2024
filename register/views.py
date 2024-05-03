@@ -13,7 +13,7 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             convertedAmount = convertCurrency(request, 'GBP', form.cleaned_data.get("currency"), 1000)
-            userDetails = UserDetails(user=user, currency=form.cleaned_data.get("currency"), balance=convertedAmount)
+            userDetails = UserDetails(user=user, currency=form.cleaned_data.get("currency"), balance=convertedAmount, email=form.cleaned_data.get("email"))
             userDetails.save()
             return redirect("login")
         else:
