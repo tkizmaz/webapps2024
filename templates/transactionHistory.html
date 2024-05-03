@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ transaction.sender.email }}</td>
                         <td>{{ transaction.receiver.email }}</td>
-                        <td>{{ transaction.senderCurrencySign }}{{ transaction.amount }}</td>
+                        <td>{{ transaction.senderCurrencySign }}{{ transaction.amountInSendersCurrency }}</td>
                         <td>{{ transaction.timestamp }}</td>
                     </tr>
                 {% endfor %}
