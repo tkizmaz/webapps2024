@@ -8,4 +8,4 @@ class PayappConfig(AppConfig):
     def ready(self):
         #start apache thrift server
         from subprocess import Popen
-        Popen(['python', './thrift/TimestampHandlerServer/timestamphandlerserver.py'])
+        Popen(['python3', './thrift/TimestampHandlerServer/timestamphandlerserver.py'])
