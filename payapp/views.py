@@ -24,6 +24,7 @@ def viewHome(request):
     paymentCount = Transaction.objects.filter(receiver=request.user).count()
     return render(request, "home.html", {'email': request.user.username, 'notificationCount': requestCount + paymentCount})
 
+@login_required
 def transferDirectMoney(request):
     requests = MoneyRequest.objects.filter(requestReceiver=request.user, accepted=False)
     if request.method == "POST":
@@ -93,6 +94,7 @@ def transferDirectMoney(request):
 
     return render(request, "transaction.html", {'balance': UserDetails.objects.get(user=request.user).balance, 'requests':requests, 'currencySign': currencySingDict[UserDetails.objects.get(user=request.user).currency]})
 
+@login_required
 def requestMoney(request):
     requests = MoneyRequest.objects.filter(requestsSender=request.user, accepted=False)
 
@@ -123,15 +125,17 @@ def requestMoney(request):
 
     return render(request, "requestMoney.html", {'balance': UserDetails.objects.get(user_id=request.user.id).balance, 'requests':requests, 'currencySign': currencySingDict[UserDetails.objects.get(user=request.user).currency]})
 
+@login_required
 def viewAccountInfo(request):
     userDetail = UserDetails.objects.get(user=request.user)
     return render(request, "accountInfo.html", {'userDetail': userDetail, 'balance': userDetail.balance, 'currencySign': currencySingDict[userDetail.currency]})
-
+@login_required
 def viewTransactionHistory(request):
     transactionsMadeByYou = Transaction.objects.filter(sender=request.user).order_by('-timestamp')
     transactionsMadeToYou = Transaction.objects.filter(receiver=request.user).order_by('-timestamp')
     return render(request, "transactionHistory.html", {'transactionsMadeByYou': transactionsMadeByYou, 'transactionsMadeToYou': transactionsMadeToYou})
 
+@login_required
 def viewNotifications(request):
     incomingTransactions = Transaction.objects.filter(receiver=request.user).order_by('-timestamp')
     incomingRequests = MoneyRequest.objects.filter(requestReceiver=request.user, accepted=False).order_by('-timestamp')
